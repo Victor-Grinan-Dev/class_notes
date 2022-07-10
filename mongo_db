@@ -1,0 +1,148 @@
+# mongodb
+
+## start the database
+
+```shell
+mongosh
+```
+## show databases:
+
+```shell
+show dbs
+```
+## change or createdatabase
+
+```shell
+use employeedb
+```
+creates a database if doesnt exist and chage to it if existing.
+
+
+## database statistics
+```shell
+db.stats()
+```
+
+
+```shell
+create a collection
+db.createCollection('employee')
+
+db.employee.insertOne({
+    employeeId: 1,
+    firstname: 'leila',
+    lastname: 'Hökki',
+    department: 'ict',
+    salary: 300
+})
+
+db.employee.find()
+db.employee.find().pretty()
+```
+
+create collection emp
+```shell
+db.emp.insertOne({a:1,b:2})
+db.emp.drop()
+
+```
+
+drop active db 
+```shell
+db.dropDatabase()
+
+```
+
+## insert types
+-   insert (** deprecated **)
+    -   array of values
+-   insertOne
+    -   one object
+-   instertMany
+    - array of objects
+
+
+```shell
+insert operation create automatically a _id field 
+ObjectId
+```
+
+
+you can also provide your own _id.
+
+```shell
+db.employee.insertOne({
+    employeeId: 1,
+    firstname: 'Leila',
+    lastname: 'Hökki',
+    department: 'ict',
+    salary: '3000'
+})
+
+db.employee.insertOne({
+    employeeId: 2,
+    firstname: 'Matt',
+    lastname: 'River',
+    department: 'ict',
+    salary: '3000'
+})
+
+db.employee.insertMany([
+    {
+        employeeId: 3,
+        firstname: 'Mary',
+        lastname: 'Jones',
+        department: 'admin',
+        salary: '5000' 
+    },
+    {
+        employeeId: 4,
+        firstname: 'Vera',
+        lastname: 'River',
+        department: 'admin',
+        salary: '4000'
+    }
+])
+
+db.employee.insertMany([
+    {
+        employeeId: 5,
+        firstname: 'Jesse',
+        lastname: 'Smith',
+        department: 'secret',
+        salary: '7000' 
+    },
+    {
+        employeeId: 6,
+        firstname: 'Amanda',
+        lastname: 'River',
+        department: 'admin',
+        salary: '6000'
+    },
+    {
+        employeeId: 7,
+        firstname: 'Mark',
+        lastname: 'Mongoose',
+        department: 'transportation',
+        salary: '4000' 
+    }
+])
+```
+
+## find data from collection
+you can give the find criteria, use pretty for pretty criteria.(pretty doesnt work in my mac)
+```shell
+db.employee.findOne()
+```
+
+```shell
+db.employee.findOne({department:'admin'}, {_id:0, salary:0})
+db.employee.findOne({department:'admin'}, {salary:1})
+db.employee.find({department:'admin'}, {_id:0,firstname:1, salary:1, department:1})
+```
+
+```shell
+db.employee.findOne({department:'admin'}, {:0})
+db.employee.find({ $and:[{department:'admin', lastname:'River'}]}, { _id:0, firstname:1, lastname:1 })
+db.employee.find({department:'admin', lastname:'River'}, { _id:0, firstname:1, lastname:1 })
+```
